@@ -1,0 +1,20 @@
+{
+  "hit_sound": {
+    "subtitle": "sounds.element_things.hit_sound",
+    "sounds": [
+      "element_things:hit_sound"
+    ]
+  },
+  "transform": {
+    "subtitle": "sounds.element_things.transform",
+    "sounds": [
+      "element_things:transform"
+    ]
+  },
+  "red_light": {
+    "subtitle": "sounds.element_things.red_light",
+    "sounds": [
+      "element_things:red_light"
+    ]
+  }
+}

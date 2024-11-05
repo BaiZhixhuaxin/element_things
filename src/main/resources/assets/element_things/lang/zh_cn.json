@@ -1,0 +1,14 @@
+{
+  "itemGroup.element_things.element_group": "诸元素",
+
+  "item.element_things.fire_gem": "火之石",
+  "item.element_things.indicator": "方向指示器",
+
+  "enchantment.element_things.frost": "冻结",
+  "enchantment.element_things.acceleration": "加速",
+
+  "effect.element_things.blue_light": "蓝灯状态",
+  "effect.element_things.red_light": "红灯状态",
+
+  "text.element_things.arrow_amount": "箭矢余量："
+}

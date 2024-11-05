@@ -1,0 +1,32 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "element_things:item/indicator_0"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1
+      },
+      "model": "element_things:item/indicator_0"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 2
+      },
+      "model": "element_things:item/indicator_1"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 3
+      },
+      "model": "element_things:item/indicator_2"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 4
+      },
+      "model": "element_things:item/indicator_3"
+    }
+  ]
+}

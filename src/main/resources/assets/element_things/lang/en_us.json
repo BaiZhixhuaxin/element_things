@@ -1,0 +1,14 @@
+{
+  "itemGroup.element_things.element_group": "Element Group",
+
+  "item.element_things.fire_gem": "Fire Gem",
+  "item.element_things.indicator": "Direction Indicator",
+
+  "enchantment.element_things.frost": "Frost",
+  "enchantment.element_things.acceleration": "Acceleration",
+
+  "effect.element_things.blue_light": "blue_light",
+  "effect.element_things.red_light": "red_light",
+
+  "text.element_things.arrow_amount": "Arrow Amount:"
+}

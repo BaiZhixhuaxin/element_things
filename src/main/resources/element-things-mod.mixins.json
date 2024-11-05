@@ -1,0 +1,32 @@
+{
+  "required": true,
+  "package": "com.example.element_things.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ExampleMixin",
+    "InventoryTickMixin",
+    "LivingEntityMixin",
+    "NewSweepParticleMixin",
+    "PersistentProjectileEntityMixin",
+    "PlayerInventoryMixin",
+    "PlayerScreenHandlerMixin",
+    "PlayerTickMixin",
+    "PostHitMixin",
+    "ToolTipMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "CameraAccessor",
+    "CameraMixin",
+    "CreativeInventoryScreenMixin",
+    "EntityRendererMixin",
+    "FlatEntityMixin",
+    "HandledScreenMixin",
+    "InventoryScreenMixin",
+    "ItemRenderMixin",
+    "LavaParticleMixin",
+    "SweepParticleMixin"
+  ]
+}
