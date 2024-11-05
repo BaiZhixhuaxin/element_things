@@ -38,14 +38,6 @@ public abstract class EntityRendererMixin<T extends Entity> {
     public void render(T entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
         if(entity instanceof PigEntity){
             MinecraftClient client = MinecraftClient.getInstance();
-         /*   matrices.push();
-            ItemStack stack = new ItemStack(Items.DIAMOND_CHESTPLATE);
-            matrices.translate(0,2.5,0);
-            matrices.scale(0.5f,0.5f,0.5f);
-            matrices.multiply(this.dispatcher.getRotation());
-            ItemRenderer itemRenderer = client.getItemRenderer();
-            itemRenderer.renderItem(stack, ModelTransformationMode.NONE,255,25,matrices,vertexConsumers,entity.getWorld(),1);
-            matrices.pop();*/
             RenderSystem.enableBlend();;
             matrices.push();
             matrices.translate(0.0f,3.0f,0.0f);
