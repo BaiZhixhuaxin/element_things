@@ -1,5 +1,6 @@
 package com.example.element_things;
 
+import com.example.element_things.block.ModBlocks;
 import com.example.element_things.component.ModComponent;
 import com.example.element_things.effect.ModEffects;
 import com.example.element_things.enchantment.Enchantments;
@@ -19,6 +20,7 @@ public class ElementThingsMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+
 		ModItems.registerModItems();
 		Enchantments.register();
 		LOGGER.info("Hello World!");
@@ -29,5 +31,6 @@ public class ElementThingsMod implements ModInitializer {
 		ModEffects.onInitialize();
 		ModItemGroups.registerItemGroups();
 		ModRecipes.registerForRecipe();
+		ModBlocks.registerBlock();
 	}
 }

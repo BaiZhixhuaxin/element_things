@@ -1,13 +1,12 @@
 package com.example.element_things.mixin;
 
+import com.example.element_things.block.ModBlocks;
 import com.example.element_things.effect.ModEffects;
 import com.example.element_things.enchantment.Enchantments;
 import com.example.element_things.util.ModEnchantmentHelper;
 import com.example.element_things.util.TickHelper;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import com.example.element_things.util.dynamic_light.DynamicLight;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.entity.EntityType;
@@ -18,7 +17,9 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -38,6 +39,7 @@ public abstract class PlayerTickMixin<T extends BlockEntity> extends LivingEntit
     }
     @Inject(method = "tick",at=@At("HEAD"))
     public void tick(CallbackInfo ci) {
+        World world = this.getWorld();
         if(!this.getWorld().isClient) TickHelper.add_tick();
         ItemStack stack = this.getEquippedStack(EquipmentSlot.FEET);
         int lvl = ModEnchantmentHelper.getLevel(stack, Enchantments.ACCELERATION);
@@ -57,6 +59,27 @@ public abstract class PlayerTickMixin<T extends BlockEntity> extends LivingEntit
                         }
                     } catch (Exception e) {
                         throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+        if(DynamicLight.isOpened()) {
+            if (this.getStackInHand(Hand.MAIN_HAND).isOf(Items.TORCH) || this.getStackInHand(Hand.OFF_HAND).isOf(Items.TORCH)) {
+                if (world.getBlockState(this.getBlockPos()).isOf(Blocks.AIR)) {
+                    world.setBlockState(this.getBlockPos(), ModBlocks.LIGHT_AIR_BLOCK.getDefaultState());
+                } else if (world.getBlockState(this.getBlockPos().up(1)).isOf(Blocks.AIR)) {
+                    world.setBlockState(this.getBlockPos().up(1), ModBlocks.LIGHT_AIR_BLOCK.getDefaultState());
+                }
+            }
+            int distance = 4;
+            for (int i = -distance; i < distance; i++) {
+                for (int j = -distance; j < distance; j++) {
+                    for (int k = -distance; k < distance; k++) {
+                        BlockPos pos = this.getBlockPos().east(i).north(j).up(k);
+                        if (world.getBlockState(pos).isOf(ModBlocks.LIGHT_AIR_BLOCK)) {
+                            if (!DynamicLight.shouldBeReplaced(pos, world))
+                                world.setBlockState(pos, Blocks.AIR.getDefaultState());
+                        }
                     }
                 }
             }
