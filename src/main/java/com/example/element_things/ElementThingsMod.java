@@ -4,6 +4,7 @@ import com.example.element_things.block.ModBlocks;
 import com.example.element_things.component.ModComponent;
 import com.example.element_things.effect.ModEffects;
 import com.example.element_things.enchantment.Enchantments;
+import com.example.element_things.entity.ModBlockEntityType;
 import com.example.element_things.item.ModItems;
 import com.example.element_things.item.tools.ModItemGroups;
 import com.example.element_things.network.ServerPacket;
@@ -32,5 +33,6 @@ public class ElementThingsMod implements ModInitializer {
 		ModItemGroups.registerItemGroups();
 		ModRecipes.registerForRecipe();
 		ModBlocks.registerBlock();
+		ModBlockEntityType.register_block_entity();
 	}
 }

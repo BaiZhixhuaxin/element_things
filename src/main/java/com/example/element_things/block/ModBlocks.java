@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 
 public class ModBlocks {
 
-    public static final Block LIGHT_AIR_BLOCK = addBlock("light_air",new LightAirBlock(AbstractBlock.Settings.copy(Blocks.AIR).luminance((state) -> 15).ticksRandomly()));
+    public static final Block LIGHT_AIR_BLOCK = addBlock("light_air",new LightAirBlock(AbstractBlock.Settings.copy(Blocks.AIR).luminance((state) -> 14).ticksRandomly()));
 
 
     public static Block addBlock(String id,Block block){

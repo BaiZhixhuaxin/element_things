@@ -71,7 +71,7 @@ public abstract class PlayerTickMixin<T extends BlockEntity> extends LivingEntit
                     world.setBlockState(this.getBlockPos().up(1), ModBlocks.LIGHT_AIR_BLOCK.getDefaultState());
                 }
             }
-            int distance = 4;
+        /*    int distance = 4;
             for (int i = -distance; i < distance; i++) {
                 for (int j = -distance; j < distance; j++) {
                     for (int k = -distance; k < distance; k++) {
@@ -82,7 +82,7 @@ public abstract class PlayerTickMixin<T extends BlockEntity> extends LivingEntit
                         }
                     }
                 }
-            }
+            }*/
         }
     }
 }

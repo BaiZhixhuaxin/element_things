@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DynamicLight {
     public static boolean shouldBeReplaced(BlockPos pos, World world) {
-        List<LivingEntity> list = world.getEntitiesByClass(LivingEntity.class, new Box(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1), e -> e instanceof PlayerEntity);
+        List<LivingEntity> list = world.getEntitiesByClass(LivingEntity.class, new Box(pos.getX() - 1.5, pos.getY() - 1.5, pos.getZ() - 1.5, pos.getX() + 1.5, pos.getY() + 1.5, pos.getZ() + 1.5), e -> e instanceof PlayerEntity);
         if (list.toArray().length > 0) {
             for (LivingEntity entity : list) {
                 return entity.getStackInHand(Hand.MAIN_HAND).isOf(Items.TORCH) || entity.getStackInHand(Hand.OFF_HAND).isOf(Items.TORCH);
@@ -20,5 +20,5 @@ public class DynamicLight {
         }
         return false;
     }
-    public static boolean isOpened(){return false;}
+    public static boolean isOpened(){return true;}
 }
