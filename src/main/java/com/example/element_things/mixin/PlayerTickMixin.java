@@ -1,7 +1,6 @@
 package com.example.element_things.mixin;
 
 import com.example.element_things.block.ModBlocks;
-import com.example.element_things.effect.ModEffects;
 import com.example.element_things.enchantment.Enchantments;
 import com.example.element_things.util.ModEnchantmentHelper;
 import com.example.element_things.util.TickHelper;
@@ -12,13 +11,10 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -71,18 +67,6 @@ public abstract class PlayerTickMixin<T extends BlockEntity> extends LivingEntit
                     world.setBlockState(this.getBlockPos().up(1), ModBlocks.LIGHT_AIR_BLOCK.getDefaultState());
                 }
             }
-        /*    int distance = 4;
-            for (int i = -distance; i < distance; i++) {
-                for (int j = -distance; j < distance; j++) {
-                    for (int k = -distance; k < distance; k++) {
-                        BlockPos pos = this.getBlockPos().east(i).north(j).up(k);
-                        if (world.getBlockState(pos).isOf(ModBlocks.LIGHT_AIR_BLOCK)) {
-                            if (!DynamicLight.shouldBeReplaced(pos, world))
-                                world.setBlockState(pos, Blocks.AIR.getDefaultState());
-                        }
-                    }
-                }
-            }*/
         }
     }
 }
