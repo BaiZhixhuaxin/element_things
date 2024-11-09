@@ -15,6 +15,7 @@ import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -61,9 +62,14 @@ public abstract class PlayerTickMixin<T extends BlockEntity> extends LivingEntit
         }
         if(DynamicLight.isOpened()) {
             if (this.getStackInHand(Hand.MAIN_HAND).isOf(Items.TORCH) || this.getStackInHand(Hand.OFF_HAND).isOf(Items.TORCH)) {
-                if (world.getBlockState(this.getBlockPos()).isOf(Blocks.AIR)) {
+                BlockState state = world.getBlockState(this.getBlockPos());
+                BlockState state1 = world.getBlockState(this.getBlockPos());
+                BlockState state2 = world.getBlockState(this.getBlockPos());
+                if (state.isIn(BlockTags.AIR)) {
                     world.setBlockState(this.getBlockPos(), ModBlocks.LIGHT_AIR_BLOCK.getDefaultState());
-                } else if (world.getBlockState(this.getBlockPos().up(1)).isOf(Blocks.AIR)) {
+                } else if (state1.isIn(BlockTags.AIR)) {
+                    world.setBlockState(this.getBlockPos().up(1), ModBlocks.LIGHT_AIR_BLOCK.getDefaultState());
+                } else if (state2.isIn(BlockTags.AIR)) {
                     world.setBlockState(this.getBlockPos().up(1), ModBlocks.LIGHT_AIR_BLOCK.getDefaultState());
                 }
             }
