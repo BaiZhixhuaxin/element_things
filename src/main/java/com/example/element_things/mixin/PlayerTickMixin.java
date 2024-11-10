@@ -2,6 +2,7 @@ package com.example.element_things.mixin;
 
 import com.example.element_things.block.ModBlocks;
 import com.example.element_things.enchantment.Enchantments;
+import com.example.element_things.tag.ModItemTags;
 import com.example.element_things.util.ModEnchantmentHelper;
 import com.example.element_things.util.TickHelper;
 import com.example.element_things.util.dynamic_light.DynamicLight;
@@ -61,16 +62,16 @@ public abstract class PlayerTickMixin<T extends BlockEntity> extends LivingEntit
             }
         }
         if(DynamicLight.isOpened()) {
-            if (this.getStackInHand(Hand.MAIN_HAND).isOf(Items.TORCH) || this.getStackInHand(Hand.OFF_HAND).isOf(Items.TORCH)) {
+            if (this.getStackInHand(Hand.MAIN_HAND).isIn(ModItemTags.GLOWING_ITEM) || this.getStackInHand(Hand.OFF_HAND).isIn(ModItemTags.GLOWING_ITEM)) {
                 BlockState state = world.getBlockState(this.getBlockPos());
-                BlockState state1 = world.getBlockState(this.getBlockPos());
-                BlockState state2 = world.getBlockState(this.getBlockPos());
+                BlockState state1 = world.getBlockState(this.getBlockPos().up(1));
+                BlockState state2 = world.getBlockState(this.getBlockPos().up(2));
                 if (state.isIn(BlockTags.AIR)) {
                     world.setBlockState(this.getBlockPos(), ModBlocks.LIGHT_AIR_BLOCK.getDefaultState());
-                } else if (state1.isIn(BlockTags.AIR)) {
+                } else if (state1.isIn(BlockTags.AIR) && !state.isOf(ModBlocks.LIGHT_AIR_BLOCK)) {
                     world.setBlockState(this.getBlockPos().up(1), ModBlocks.LIGHT_AIR_BLOCK.getDefaultState());
-                } else if (state2.isIn(BlockTags.AIR)) {
-                    world.setBlockState(this.getBlockPos().up(1), ModBlocks.LIGHT_AIR_BLOCK.getDefaultState());
+                } else if (state2.isIn(BlockTags.AIR) && !state.isOf(ModBlocks.LIGHT_AIR_BLOCK) && !state1.isOf(ModBlocks.LIGHT_AIR_BLOCK)) {
+                    world.setBlockState(this.getBlockPos().up(2), ModBlocks.LIGHT_AIR_BLOCK.getDefaultState());
                 }
             }
         }

@@ -11,6 +11,7 @@ import com.example.element_things.network.ServerPacket;
 import com.example.element_things.particle.ModParticles;
 import com.example.element_things.recipe.ModRecipes;
 import com.example.element_things.sound.ModSoundEvents;
+import com.example.element_things.tag.ModItemTags;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,5 +35,6 @@ public class ElementThingsMod implements ModInitializer {
 		ModRecipes.registerForRecipe();
 		ModBlocks.registerBlock();
 		ModBlockEntityType.register_block_entity();
+		ModItemTags.registerItemTags();
 	}
 }

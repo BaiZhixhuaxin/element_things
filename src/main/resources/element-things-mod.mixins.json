@@ -3,8 +3,10 @@
   "package": "com.example.element_things.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "CreeperEntityMixin",
     "ExampleMixin",
     "InventoryTickMixin",
+    "ItemEntityMixin",
     "LivingEntityMixin",
     "NewSweepParticleMixin",
     "PersistentProjectileEntityMixin",
@@ -12,6 +14,7 @@
     "PlayerScreenHandlerMixin",
     "PlayerTickMixin",
     "PostHitMixin",
+    "TntEntityMixin",
     "ToolTipMixin"
   ],
   "injectors": {
