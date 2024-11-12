@@ -27,10 +27,12 @@
     "CreativeInventoryScreenMixin",
     "EntityRendererMixin",
     "FlatEntityMixin",
+    "GameRendererMixin",
     "HandledScreenMixin",
     "InventoryScreenMixin",
     "ItemRenderMixin",
     "LavaParticleMixin",
+    "MouseMixin",
     "SweepParticleMixin"
   ]
 }

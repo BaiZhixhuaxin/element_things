@@ -1,4 +1,9 @@
 {
+  "key.category.element_things": "Element Things",
+  "key.element_things.open_screen": "Change View",
+  "key.element_things.zoom": "Zoom",
+
+
   "itemGroup.element_things.element_group": "诸元素",
 
   "item.element_things.fire_gem": "火之石",
