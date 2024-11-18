@@ -20,6 +20,7 @@ public class ModItemGroups {
                     entries.add(ModItems.FIRE_GEM);
                     entries.add(ModItems.FIRE_SWORD);
                     entries.add(ModItems.INDICATOR);
+                    entries.add(ModItems.BULLET);
                 }).build());
     }
 

@@ -15,6 +15,7 @@ public class ModItems {
     public static final Item FIRE_SWORD = registerItem("fire_sword",new FireSword(new FireGemToolMaterial(),new Item.Settings().maxDamage(512).attributeModifiers(SwordItem.createAttributeModifiers(new FireGemToolMaterial(),9,-2.0f))));
     public static final Item INDICATOR = registerItem("indicator",new Indicator(new Item.Settings().component(ModComponent.INDICATOR_X,0).component(ModComponent.INDICATOR_Y,0).component(ModComponent.INDICATOR_Z,0)));
     public static final Item QUIVER = registerItem("quiver",new Quiver(new Item.Settings().maxCount(1).component(ModComponent.ARROW_AMOUNT,0)));
+    public static final Item BULLET  = registerItem("bullet",new Bullet(new Item.Settings().maxCount(64)));
 
 
 
