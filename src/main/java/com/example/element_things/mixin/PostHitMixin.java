@@ -2,15 +2,15 @@ package com.example.element_things.mixin;
 
 import com.example.element_things.access.FlattenManagerAccess;
 import com.example.element_things.enchantment.Enchantments;
+import com.example.element_things.event.SoundCheckKey;
 import com.example.element_things.sound.ModSoundEvents;
 import com.example.element_things.util.ModEnchantmentHelper;
-import com.example.element_things.util.flatten.FlattenManager;
+import com.example.element_things.util.SoundRMS;
 import net.fabricmc.fabric.api.item.v1.FabricItemStack;
 import net.minecraft.component.ComponentHolder;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -37,6 +37,15 @@ public abstract class PostHitMixin implements ComponentHolder, FabricItemStack,F
                 NbtCompound nbt = new NbtCompound();
                 NbtCompound entity = target.writeNbt(nbt);
                 System.out.println(entity.getBoolean("beenFlattened"));
+            }
+            if(SoundCheckKey.isSoundKeyPressed()){
+                double extra_damage = SoundRMS.SoundRMS * 6.5;
+                if(target.isAlive()){
+                   if(target.getHealth() > extra_damage) target.setHealth(target.getHealth() - (float) extra_damage);
+                   else {target.damage(target.getDamageSources().playerAttack(player), (float) extra_damage);
+                   System.out.println(true);
+                   }
+                }
             }
     }
 }

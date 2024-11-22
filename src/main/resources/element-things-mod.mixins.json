@@ -12,8 +12,10 @@
     "PersistentProjectileEntityMixin",
     "PlayerInventoryMixin",
     "PlayerScreenHandlerMixin",
+    "PlayerSoundCheckMixin",
     "PlayerTickMixin",
     "PostHitMixin",
+    "PostMineMixin",
     "TntEntityMixin",
     "ToolTipMixin"
   ],

@@ -11,6 +11,7 @@ public class Enchantments {
     public static final  RegistryKey<Enchantment> FROST = registerEnchantment("frost");
     public static final RegistryKey<Enchantment> ACCELERATION = registerEnchantment("acceleration");
     public static final RegistryKey<Enchantment> TRACING  = registerEnchantment("tracing");
+    public static final RegistryKey<Enchantment> CHAIN_MINING = registerEnchantment("chain_mining");
 
     private static RegistryKey<Enchantment> registerEnchantment(String name){
         return RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(ElementThingsMod.MOD_ID,name));
