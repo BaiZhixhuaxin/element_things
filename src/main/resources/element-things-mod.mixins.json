@@ -17,7 +17,8 @@
     "PostHitMixin",
     "PostMineMixin",
     "TntEntityMixin",
-    "ToolTipMixin"
+    "ToolTipMixin",
+    "WaterBucketMixin"
   ],
   "injectors": {
     "defaultRequire": 1
