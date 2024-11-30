@@ -8,6 +8,7 @@
     "InventoryTickMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
+    "MaceItemMixin",
     "NewSweepParticleMixin",
     "PersistentProjectileEntityMixin",
     "PlayerInventoryMixin",
@@ -25,6 +26,8 @@
   },
   "client": [
     "BlockOutlineMixin",
+    "BufferBuilderAccess",
+    "BufferBuilderStorageMixin",
     "CameraAccessor",
     "CameraMixin",
     "CreativeInventoryScreenMixin",

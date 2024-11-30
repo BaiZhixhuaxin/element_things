@@ -1,6 +1,7 @@
 package com.example.element_things.mixin;
 
 import com.example.element_things.enchantment.Enchantments;
+import com.example.element_things.util.BlockPosList;
 import com.example.element_things.util.ModEnchantmentHelper;
 import com.google.common.collect.Sets;
 import net.fabricmc.fabric.api.item.v1.FabricItemStack;
@@ -46,8 +47,8 @@ public abstract class PostMineMixin implements ComponentHolder, FabricItemStack 
                             stack.damage(1,miner, EquipmentSlot.MAINHAND);
                         }
                         else if(stack.getMaxDamage() - stack.getDamage() <= 1) break;
+                        BlockPosList.list.clear();
                     }
-                    System.out.println(blocks);
                 }
             }
         }

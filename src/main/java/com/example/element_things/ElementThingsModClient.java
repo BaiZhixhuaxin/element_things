@@ -10,10 +10,12 @@ import com.example.element_things.event.ZoomKey;
 import com.example.element_things.network.ClientPacket;
 import com.example.element_things.particle.FireSweepAttackParticle;
 import com.example.element_things.particle.ModParticles;
+import com.example.element_things.util.LineRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 
 public class ElementThingsModClient implements ClientModInitializer {
     @Override
@@ -28,5 +30,6 @@ public class ElementThingsModClient implements ClientModInitializer {
         DeleteItemKey.register();
         SoundCheckKey.register();
         EntityRendererRegistry.register(ElementThingsMod.BULLET_ENTITY_TYPE, BulletRenderer::new);
+        WorldRenderEvents.LAST.register(LineRenderer::render);
     }
 }

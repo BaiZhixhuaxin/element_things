@@ -4,13 +4,16 @@ import com.example.element_things.access.BucketTrainingManagerAccess;
 import com.example.element_things.block.ModBlocks;
 import com.example.element_things.enchantment.Enchantments;
 import com.example.element_things.tag.ModItemTags;
+import com.example.element_things.util.BlockPosList;
 import com.example.element_things.util.ModEnchantmentHelper;
 import com.example.element_things.util.TickHelper;
 import com.example.element_things.util.bucket_training.BucketTrainingManager;
 import com.example.element_things.util.dynamic_light.DynamicLight;
+import com.google.common.collect.Sets;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -22,6 +25,8 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.TeleportTarget;
@@ -33,7 +38,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.LinkedList;
 import java.util.Random;
+import java.util.Set;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerTickMixin<T extends BlockEntity> extends LivingEntity implements BucketTrainingManagerAccess {
@@ -49,6 +56,8 @@ public abstract class PlayerTickMixin<T extends BlockEntity> extends LivingEntit
     }
     @Unique
     private static int tick = 0;
+    @Unique
+    private static final int max_block = 125;
 
     protected PlayerTickMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -109,6 +118,32 @@ public abstract class PlayerTickMixin<T extends BlockEntity> extends LivingEntit
             }
             tick++;
         }
+        if(this.isSneaking()){
+            HitResult result = MinecraftClient.getInstance().crosshairTarget;
+            if (result != null && result.getType().equals(HitResult.Type.BLOCK)) {
+                BlockHitResult blockHitResult = (BlockHitResult) result;
+                BlockPos pos = blockHitResult.getBlockPos();
+                BlockState state;
+                state = world.getBlockState(pos);
+                if (!state.isIn(BlockTags.AIR) && !state.isOf(Blocks.WATER) && !state.isOf(Blocks.LAVA)) {
+                    int blocks = 1;
+                    Set<BlockPos> visited = Sets.newHashSet(pos);
+                    LinkedList<BlockPos> candidates = new LinkedList<>();
+                    candidates.add(pos);
+                    addNeighbors(candidates, pos);
+                    while (blocks < max_block && !candidates.isEmpty()) {
+                        BlockPos blockPos = candidates.poll();
+                        BlockState state1 = world.getBlockState(blockPos);
+                        if (state1.equals(state) && visited.add(blockPos)) {
+                            blocks++;
+                            addNeighbors(candidates, blockPos);
+                        }
+                    }
+                    BlockPosList.list = visited;
+                }
+            }
+        }
+        else BlockPosList.list.clear();
     }
     @Inject(method = "readCustomDataFromNbt",at=@At("TAIL"))
     private void readNbt(NbtCompound nbt, CallbackInfo ci){
@@ -128,5 +163,23 @@ public abstract class PlayerTickMixin<T extends BlockEntity> extends LivingEntit
             if(!world.getBlockState(pos.up(i)).isIn(BlockTags.AIR)) return false;
         }
         return true;
+    }
+    @Unique
+    private static void addNeighbors(LinkedList<BlockPos> candidates, BlockPos source){
+        BlockPos up = source.up();
+        BlockPos down = source.down();
+        candidates.add(up);
+        candidates.add(down);
+        BlockPos[] blockPositions = new BlockPos[]{up,source,down};
+        for(BlockPos pos : blockPositions){
+            candidates.add(pos.west());
+            candidates.add(pos.east());
+            candidates.add(pos.north());
+            candidates.add(pos.south());
+            candidates.add(pos.north().west());
+            candidates.add(pos.north().east());
+            candidates.add(pos.south().west());
+            candidates.add(pos.south().east());
+        }
     }
 }
