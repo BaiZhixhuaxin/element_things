@@ -9,6 +9,8 @@
   "item.element_things.fire_gem": "火之石",
   "item.element_things.indicator": "方向指示器",
 
+  "block.element_things.stove_block": "炉子",
+
   "enchantment.element_things.frost": "冻结",
   "enchantment.element_things.acceleration": "加速",
   "enchantment.element_things.tracing": "追踪",

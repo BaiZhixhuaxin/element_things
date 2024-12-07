@@ -1,6 +1,7 @@
 package com.example.element_things.item.tools;
 
 import com.example.element_things.ElementThingsMod;
+import com.example.element_things.block.ModBlocks;
 import com.example.element_things.item.ModItems;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -21,6 +22,7 @@ public class ModItemGroups {
                     entries.add(ModItems.FIRE_SWORD);
                     entries.add(ModItems.INDICATOR);
                     entries.add(ModItems.BULLET);
+              //      entries.add(ModBlocks.STOVE.asItem());
                 }).build());
     }
 

@@ -9,6 +9,8 @@
   "item.element_things.fire_gem": "Fire Gem",
   "item.element_things.indicator": "Direction Indicator",
 
+  "block.element_things.stove_block": "Stove",
+
   "enchantment.element_things.frost": "Frost",
   "enchantment.element_things.acceleration": "Acceleration",
   "enchantment.element_things.tracing": "Tracing",

@@ -11,6 +11,7 @@ import com.example.element_things.item.tools.ModItemGroups;
 import com.example.element_things.network.ServerPacket;
 import com.example.element_things.particle.ModParticles;
 import com.example.element_things.recipe.ModRecipes;
+import com.example.element_things.screenHandler.ModScreenHandler;
 import com.example.element_things.sound.ModSoundEvents;
 import com.example.element_things.tag.ModItemTags;
 import net.fabricmc.api.ModInitializer;
@@ -44,5 +45,6 @@ public class ElementThingsMod implements ModInitializer {
 		ModBlockEntityType.register_block_entity();
 		ModItemTags.registerItemTags();
 		Registry.register(Registries.ENTITY_TYPE, Identifier.of(ElementThingsMod.MOD_ID,"bullet"),BULLET_ENTITY_TYPE);
+		ModScreenHandler.registerScreenHandler();
 	}
 }

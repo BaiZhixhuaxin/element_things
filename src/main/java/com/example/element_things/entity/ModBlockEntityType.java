@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 public class ModBlockEntityType {
 
     public static final BlockEntityType<LightAirBlockEntity> LIGHT_AIR_BLOCK_ENTITY_TYPE = register("light_air_entity_type",BlockEntityType.Builder.create(LightAirBlockEntity::new, ModBlocks.LIGHT_AIR_BLOCK).build());
+    public static final BlockEntityType<StoveBlockEntity> STOVE_BLOCK_ENTITY = register("stove_block_entity",BlockEntityType.Builder.create(StoveBlockEntity::new,ModBlocks.STOVE).build());
 
 
 
