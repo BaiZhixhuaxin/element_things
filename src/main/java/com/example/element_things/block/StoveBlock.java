@@ -3,7 +3,6 @@ package com.example.element_things.block;
 import com.example.element_things.entity.ModBlockEntityType;
 import com.example.element_things.entity.StoveBlockEntity;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
