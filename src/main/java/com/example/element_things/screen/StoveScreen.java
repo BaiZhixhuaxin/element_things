@@ -16,7 +16,7 @@ public class StoveScreen extends HandledScreen<StoveScreenHandler> {
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        context.drawTexture(path,x,y,0,0,backgroundWidth,backgroundHeight);
-        context.drawTexture(path, x + 80,y + 35,177,14, (int) (handler.getRate() * 22),16);
+        context.drawTexture(path, x, y,  0, 0, backgroundWidth, backgroundHeight);
+        context.drawTexture(path, x + 80, y + 35, 177, 14, (int) (handler.getRate() * 22), 16);
     }
 }

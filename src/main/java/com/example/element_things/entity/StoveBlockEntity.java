@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class StoveBlockEntity extends BlockEntity implements NamedScreenHandlerFactory , Inventory {
     private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2,ItemStack.EMPTY);
+    private boolean hasBeenSet = false;
     private int progress;
     private int progressTotal = 20 * 5;
     private final PropertyDelegate delegate = new PropertyDelegate() {
@@ -124,20 +125,28 @@ public class StoveBlockEntity extends BlockEntity implements NamedScreenHandlerF
         entity.tick(world,pos,state);
     }
     public void tick(World world,BlockPos pos,BlockState state){
-        ItemStack craftStack = this.inventory.get(0);
-        ItemStack resultStack = this.inventory.get(1);
-        if(craftStack.isOf(Items.BLAZE_POWDER) && ((resultStack.isEmpty()) || (resultStack.isOf(ModItems.FIRE_GEM) && resultStack.getCount() < resultStack.getMaxCount()))){
-            progress++;
-            if(progress >= progressTotal){
-                craftStack.decrement(1);
-                if(resultStack.isEmpty()){
-                    this.inventory.set(1,ModItems.FIRE_GEM.getDefaultStack());
+        if(world.isRaining()) {
+            ItemStack craftStack = this.inventory.get(0);
+            ItemStack resultStack = this.inventory.get(1);
+            if (craftStack.isOf(Items.BLAZE_POWDER) && ((resultStack.isEmpty()) || (resultStack.isOf(ModItems.FIRE_GEM) && resultStack.getCount() < resultStack.getMaxCount()))) {
+                hasBeenSet = false;
+                progress++;
+                if (progress >= progressTotal) {
+                    craftStack.decrement(1);
+                    if (resultStack.isEmpty()) {
+                        this.inventory.set(1, ModItems.FIRE_GEM.getDefaultStack());
+                    } else if (resultStack.isOf(ModItems.FIRE_GEM)) {
+                        resultStack.increment(1);
+                    }
+                    progress = 0;
                 }
-                else if(resultStack.isOf(ModItems.FIRE_GEM)){
-                    resultStack.increment(1);
-                }
-                progress = 0;
+                markDirty();
             }
+        }
+        else if(!hasBeenSet){
+            progress = 0;
+            progressTotal = 20 * 5;
+            hasBeenSet = true;
             markDirty();
         }
     }
