@@ -6,6 +6,7 @@
     "CreeperEntityMixin",
     "EntityMixin",
     "ExampleMixin",
+    "HuskEntityMixin",
     "InventoryTickMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
