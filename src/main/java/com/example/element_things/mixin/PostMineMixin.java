@@ -26,7 +26,6 @@ import java.util.Set;
 public abstract class PostMineMixin implements ComponentHolder, FabricItemStack {
     @Unique
     private static final int max_block = 125;
-    @Unique
     @Inject(method = "postMine",at=@At("RETURN"))
     private void mining(World world, BlockState state, BlockPos pos, PlayerEntity miner, CallbackInfo ci){
         if(!world.isClient){

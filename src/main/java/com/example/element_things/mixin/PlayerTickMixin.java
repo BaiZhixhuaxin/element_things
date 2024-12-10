@@ -4,6 +4,7 @@ import com.example.element_things.access.AnimalInventoryAccess;
 import com.example.element_things.access.BucketTrainingManagerAccess;
 import com.example.element_things.block.ModBlocks;
 import com.example.element_things.enchantment.Enchantments;
+import com.example.element_things.entity.StoveBlockEntity;
 import com.example.element_things.tag.ModItemTags;
 import com.example.element_things.util.BlockPosList;
 import com.example.element_things.util.ModEnchantmentHelper;
@@ -28,6 +29,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -37,6 +39,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -46,6 +49,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.LinkedList;
+import java.util.OptionalInt;
 import java.util.Random;
 import java.util.Set;
 
@@ -54,6 +58,8 @@ public abstract class PlayerTickMixin<T extends BlockEntity> extends LivingEntit
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
 
     @Shadow public abstract boolean giveItemStack(ItemStack stack);
+
+    @Shadow public abstract OptionalInt openHandledScreen(@Nullable NamedScreenHandlerFactory factory);
 
     @Unique
     private BucketTrainingManager bucketTrainingManager = new BucketTrainingManager();
@@ -191,21 +197,25 @@ public abstract class PlayerTickMixin<T extends BlockEntity> extends LivingEntit
     }
     @Inject(method = "interact",at=@At("RETURN"))
     private void set(Entity entity, Hand hand, CallbackInfoReturnable<ActionResult> cir){
+        World world = entity.getWorld();
         if(entity instanceof LivingEntity livingEntity && !entity.getWorld().isClient) {
             if (livingEntity instanceof HuskEntity) {
                 AnimalInventory animalInventory = ((AnimalInventoryAccess) livingEntity).getAnimalInventory();
-                if (!animalInventory.isEmpty()) {
-                    for (int i = 0; i < animalInventory.size(); i++) {
-                        if (!animalInventory.pack.get(i).isEmpty()) {
-                            ItemStack itemStack = animalInventory.pack.get(i).copy();
-                            itemStack.decrement(1);
-                            ItemStack stack = animalInventory.pack.get(i).copy();
-                            stack.setCount(1);
-                            this.giveItemStack(stack);
-                            animalInventory.pack.set(i, itemStack);
-                            break;
-                        }
-                    }
+//                if (!animalInventory.isEmpty()) {
+//                    for (int i = 0; i < animalInventory.size(); i++) {
+//                        if (!animalInventory.pack.get(i).isEmpty()) {
+//                            ItemStack itemStack = animalInventory.pack.get(i).copy();
+//                            itemStack.decrement(1);
+//                            ItemStack stack = animalInventory.pack.get(i).copy();
+//                            stack.setCount(1);
+//                            this.giveItemStack(stack);
+//                            animalInventory.pack.set(i, itemStack);
+//                            break;
+//                        }
+//                    }
+//                }
+                 {
+                    this.openHandledScreen((NamedScreenHandlerFactory) entity);
                 }
             }
         }

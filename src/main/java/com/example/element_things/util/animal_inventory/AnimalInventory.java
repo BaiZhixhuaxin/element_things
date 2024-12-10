@@ -2,6 +2,7 @@ package com.example.element_things.util.animal_inventory;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -37,18 +38,23 @@ public class AnimalInventory implements Inventory {
 
     @Override
     public ItemStack removeStack(int slot, int amount) {
-        return (slot <= pack.size() - 1 && slot >= 0) ? ItemStack.EMPTY : null;
+        ItemStack itemStack = Inventories.splitStack(this.pack,slot,amount);
+        if(!itemStack.isEmpty()){
+            this.markDirty();
+        }
+        return itemStack;
     }
 
     @Override
     public ItemStack removeStack(int slot) {
-        return null;
+        return Inventories.removeStack(this.pack,slot);
     }
 
     @Override
     public void setStack(int slot, ItemStack stack) {
         if(slot <= pack.size() - 1 && slot >= 0){
             pack.set(slot,stack);
+            stack.capCount(this.getMaxCount(stack));
         }
     }
 
@@ -58,7 +64,7 @@ public class AnimalInventory implements Inventory {
 
     @Override
     public boolean canPlayerUse(PlayerEntity player) {
-        return false;
+        return true;
     }
 
     @Override
@@ -72,7 +78,7 @@ public class AnimalInventory implements Inventory {
             if(!this.pack.get(i).isEmpty()) {
                 nbtCompound = new NbtCompound();
                 nbtCompound.putByte("Slot", (byte) (i));
-                list.add(pack.get(i).encode(this.entity.getRegistryManager()));
+                list.add(pack.get(i).encode(this.entity.getRegistryManager(),nbtCompound));
             }
         }
         return list;
@@ -87,5 +93,10 @@ public class AnimalInventory implements Inventory {
                 pack.set(j,itemStack);
             }
         }
+    }
+
+    @Override
+    public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {
+        return true;
     }
 }
