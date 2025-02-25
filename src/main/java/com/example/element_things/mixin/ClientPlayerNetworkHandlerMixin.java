@@ -22,17 +22,17 @@ import java.util.TimerTask;
 @Mixin(ClientPlayNetworkHandler.class)
 public class ClientPlayerNetworkHandlerMixin {
     @Unique
-    private static final String API_KEY = "22235f26-8cd1-4ad8-9f1a-fa58d1d8c2e4";
+    private static final String API_KEY = "";  //输入API密钥
     @Unique
-    private static final String ENDPOINT = "https://ark.cn-beijing.volces.com/api/v3";
+    private static final String ENDPOINT = ""; //模型地址
     @Unique
     private static final ArkService service = ArkService.builder().apiKey(API_KEY).build();
     @Unique
-    private static final ChatMessage systemMessage = ChatMessage.builder().role(ChatMessageRole.SYSTEM).content("你是玩家的女朋友，会和男朋友一起玩Minecraft，你很爱你的男朋友，称呼他为宝贝，特别粘人，有些傲娇、俏皮且日常").build();
+    private static final ChatMessage systemMessage = ChatMessage.builder().role(ChatMessageRole.SYSTEM).content("你是一个Minecraft的AI陪玩").build();
     @Inject(method = "sendChatMessage",at=@At("TAIL"))
     private void send(String content, CallbackInfo ci){
         PlayerEntity player = MinecraftClient.getInstance().player;
-        if(player != null){
+        if(player != null && API_KEY != ""){
             String response = askAI(content);
             Timer timer = new Timer();
             TimerTask task = new TimerTask() {
