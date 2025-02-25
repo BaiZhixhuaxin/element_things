@@ -1,6 +1,7 @@
 package com.example.element_things.item;
 
 import com.example.element_things.ElementThingsMod;
+import com.example.element_things.entity.AmmoEntity;
 import com.example.element_things.entity.BulletEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -18,12 +19,7 @@ public class Bullet extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if(!world.isClient){
-            BulletEntity bulletEntity = new BulletEntity(ElementThingsMod.BULLET_ENTITY_TYPE,world);
-            Vec3d eye = user.getRotationVec(0.0f).normalize().multiply(0.3f);
-            Vec3d pos = user.getEyePos().add(eye);
-            bulletEntity.setPos(pos.getX(),pos.getY(),pos.getZ());
-            bulletEntity.setVelocity(eye.multiply(15));
-            world.spawnEntity(bulletEntity);
+            user.setNoGravity(false);
         }
         return super.use(world, user, hand);
     }

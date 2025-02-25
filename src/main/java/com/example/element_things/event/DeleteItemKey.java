@@ -2,7 +2,6 @@ package com.example.element_things.event;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
@@ -20,12 +19,12 @@ public class DeleteItemKey {
         deleteKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 KEY_DELETE,
                 InputUtil.Type.KEYSYM,
-                key = GLFW.GLFW_KEY_DELETE,
+                key = GLFW.GLFW_KEY_H,
                 KEY_CATEGORY_ELEMENT
         ));
         registerKeyInputs();
     }
     public static boolean isDeleteKeyPressed(){
-        return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), key);
+        return deleteKey.isPressed();
     }
 }

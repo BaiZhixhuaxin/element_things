@@ -43,7 +43,6 @@ public abstract class PostHitMixin implements ComponentHolder, FabricItemStack,F
                 if(target.isAlive()){
                    if(target.getHealth() > extra_damage) target.setHealth(target.getHealth() - (float) extra_damage);
                    else {target.damage(target.getDamageSources().playerAttack(player), (float) extra_damage);
-                   System.out.println(true);
                    }
                 }
             }

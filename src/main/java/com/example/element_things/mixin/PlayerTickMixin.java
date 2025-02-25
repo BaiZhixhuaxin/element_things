@@ -13,6 +13,7 @@ import com.example.element_things.util.animal_inventory.AnimalInventory;
 import com.example.element_things.util.bucket_training.BucketTrainingManager;
 import com.example.element_things.util.dynamic_light.DynamicLight;
 import com.google.common.collect.Sets;
+import com.mojang.authlib.GameProfile;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -41,6 +42,7 @@ import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -60,7 +62,6 @@ public abstract class PlayerTickMixin<T extends BlockEntity> extends LivingEntit
     @Shadow public abstract boolean giveItemStack(ItemStack stack);
 
     @Shadow public abstract OptionalInt openHandledScreen(@Nullable NamedScreenHandlerFactory factory);
-
     @Unique
     private BucketTrainingManager bucketTrainingManager = new BucketTrainingManager();
     @Override
@@ -71,6 +72,7 @@ public abstract class PlayerTickMixin<T extends BlockEntity> extends LivingEntit
     private static int tick = 0;
     @Unique
     private static final int max_block = 125;
+
 
     protected PlayerTickMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);

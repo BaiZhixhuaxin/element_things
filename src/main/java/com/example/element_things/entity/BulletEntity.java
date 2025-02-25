@@ -4,18 +4,16 @@ import com.example.element_things.item.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class BulletEntity extends PersistentProjectileEntity {
     public BulletEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
@@ -45,10 +43,12 @@ public class BulletEntity extends PersistentProjectileEntity {
         distanceTravelled += motion.length();
    //     setPos(posX,posY,posZ);
         checkBlockCollision();
-        Box box = new Box(this.getX() - 0.25,this.getY() - 0.25,this.getZ() + 0.25,this.getX() + 0.25,this.getY() - 0.25,this.getZ() + 0.25);
-        Entity entity = this.getWorld().getClosestEntity(LivingEntity.class, TargetPredicate.DEFAULT,null,this.getX() - 0.25,this.getY() - 0.25,this.getZ() - 0.25,box);
-        if(entity instanceof LivingEntity livingEntity && livingEntity.isAlive()){
-        //    entity.damage(entity.getDamageSources().magic(), 20.0f);
+        Box box = new Box(this.getX() - 0.5,this.getY() - 0.5,this.getZ() - 0.5,this.getX() + 0.5,this.getY() + 0.5,this.getZ() + 0.5);
+        List<LivingEntity> list = this.getWorld().getEntitiesByClass(LivingEntity.class,box,e -> !e.isPlayer());
+        if(list.toArray().length > 0){
+            LivingEntity entity = list.get(0);
+            entity.damage(entity.getDamageSources().magic(),20.0f);
+            this.discard();
         }
     }
 
@@ -61,6 +61,7 @@ public class BulletEntity extends PersistentProjectileEntity {
     protected boolean canHit(Entity entity) {
         return !entity.equals(getOwner());
     }
+
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.element_things.mixin;
 
 import com.example.element_things.util.TickHelper;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.render.VertexConsumer;
@@ -11,12 +12,18 @@ import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.RotationAxis;
+import net.minecraft.world.World;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -61,6 +68,27 @@ public abstract class ItemRenderMixin implements SynchronousResourceReloader ,Re
                 vertices.quad(entry, bakedQuad, g, h, j, f, light, overlay);
             }
             ci.cancel();
+        }
+   }
+   @Inject(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V",at=@At("HEAD"), cancellable = true)
+    private void render(ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model, CallbackInfo ci){
+        if(stack.isOf(Items.LEAD)){
+            if(renderMode.equals(ModelTransformationMode.GUI)) {
+                return;
+            }
+            ci.cancel();
+            matrices.push();
+            World world = MinecraftClient.getInstance().world;
+            Quaternionf quaternionf = new Quaternionf().rotateAxis((float) Math.toRadians(180),new Vector3f(0,1,0));
+            matrices.multiply(quaternionf);
+            matrices.scale(0.5f,0.5f,0.5f);
+            matrices.translate(1.0f,0f,0f);
+            if(world != null) {
+                WanderingTraderEntity wanderingTrader = new WanderingTraderEntity(EntityType.WANDERING_TRADER,world);
+                wanderingTrader.setAiDisabled(true);
+                MinecraftClient.getInstance().getEntityRenderDispatcher().render(wanderingTrader,0,0,0,0.0f,1.0f,matrices,vertexConsumers,light);
+            }
+            matrices.pop();
         }
    }
 }

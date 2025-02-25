@@ -1,6 +1,7 @@
 package com.example.element_things.screenHandler;
 
 import com.example.element_things.ElementThingsMod;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.resource.featuretoggle.FeatureFlags;

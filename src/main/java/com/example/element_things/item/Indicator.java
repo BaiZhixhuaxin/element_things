@@ -1,10 +1,13 @@
 package com.example.element_things.item;
 
 import com.example.element_things.component.ModComponent;
+import com.terraformersmc.modmenu.util.mod.Mod;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
@@ -23,6 +26,8 @@ public class Indicator extends Item {
             stack.set(ModComponent.INDICATOR_X,pos.getX());
             stack.set(ModComponent.INDICATOR_Y,pos.getY());
             stack.set(ModComponent.INDICATOR_Z,pos.getZ());
+            NbtComponent nbtComponent = stack.getOrDefault(ModComponent.ENTITY_MESSAGE,NbtComponent.DEFAULT);
+            NbtCompound nbt = nbtComponent.copyNbt();
         }
         return super.use(world, user, hand);
     }

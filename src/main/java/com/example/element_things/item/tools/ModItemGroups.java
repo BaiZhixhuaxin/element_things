@@ -22,7 +22,8 @@ public class ModItemGroups {
                     entries.add(ModItems.FIRE_SWORD);
                     entries.add(ModItems.INDICATOR);
                     entries.add(ModItems.BULLET);
-              //      entries.add(ModBlocks.STOVE.asItem());
+                    entries.add(ModBlocks.STOVE);
+                    entries.add(ModItems.ENTITY_ITEM);
                 }).build());
     }
 

@@ -99,4 +99,7 @@ public class AnimalInventory implements Inventory {
     public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {
         return true;
     }
+    public LivingEntity getEntity(){
+        return this.entity;
+    }
 }

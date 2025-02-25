@@ -32,15 +32,18 @@
     "BufferBuilderStorageMixin",
     "CameraAccessor",
     "CameraMixin",
+    "ClientPlayerNetworkHandlerMixin",
     "CreativeInventoryScreenMixin",
     "EntityRendererMixin",
     "FlatEntityMixin",
     "GameRendererMixin",
+    "GlDebugInfoMixin",
     "HandledScreenMixin",
     "InventoryScreenMixin",
     "ItemRenderMixin",
     "LavaParticleMixin",
     "MouseMixin",
+    "PlayerEntityModelMixin",
     "SweepParticleMixin"
   ]
 }

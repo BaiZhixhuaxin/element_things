@@ -1,5 +1,7 @@
 package com.example.element_things.screenHandler;
 
+import com.example.element_things.util.animal_inventory.AnimalInventory;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -9,7 +11,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 
 public class AnimalInventoryScreenHandler extends ScreenHandler {
-    private Inventory inventory;
+    public Inventory inventory;
     public AnimalInventoryScreenHandler( int syncId,PlayerInventory playerInventory) {
         this(syncId,playerInventory,new SimpleInventory(16));
     }
@@ -33,11 +35,35 @@ public class AnimalInventoryScreenHandler extends ScreenHandler {
 
     @Override
     public ItemStack quickMove(PlayerEntity player, int slot) {
-        return ItemStack.EMPTY;
+        ItemStack itemStack = ItemStack.EMPTY;
+        Slot slot2 = this.slots.get(slot);
+        if (slot2.hasStack()) {
+            ItemStack itemStack2 = slot2.getStack();
+            itemStack = itemStack2.copy();
+            if (slot < player.getInventory().size()) {
+                if (!this.insertItem(itemStack2, 0, this.slots.size(), true)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.insertItem(itemStack2, 0, player.getInventory().size(), false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemStack2.isEmpty()) {
+                slot2.setStack(ItemStack.EMPTY);
+            } else {
+                slot2.markDirty();
+            }
+        }
+
+        return itemStack;
     }
 
     @Override
     public boolean canUse(PlayerEntity player) {
         return true;
+    }
+    public LivingEntity getEntity(){
+        if(inventory instanceof AnimalInventory animalInventory) return animalInventory.getEntity();
+        return null;
     }
 }
